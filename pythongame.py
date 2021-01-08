@@ -1,6 +1,7 @@
 from tkinter import *
 import time
 import math
+import random
 
 WIDTH = 800
 HEIGHT = 400
@@ -45,7 +46,7 @@ chance = 0
 
 def fire(event):  # 이벤트를 처리하는 함수
     global chance
-    bullets.append(Ball(canvas, 'white', 10, 150, 250, 10, 0))
+    bullets.append(Ball(canvas, 'white', 10, 150, 250, 15, 0))
     chance += 1
 
 
@@ -89,8 +90,10 @@ b1.grid(row=2, column=3)
 canvas.bind('<Button-3>', is_paused)
 
 # 우리 우주선과 외계 우주선을 생성한다.
+a = random.randrange(-9, 10)
+b = random.randrange(-9, 10)
 spaceship = Ball(canvas, 'green', 100, 100, 200, 0, 0)
-enemy = Ball(canvas, 'red', 100, 500, 200, 3, 3)
+enemy = Ball(canvas, 'red', 100, 500, 200, a, b)
 
 # 리스트에 저장된 각각의 객체를 이동시킨다.
 while True:
