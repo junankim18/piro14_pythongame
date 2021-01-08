@@ -53,24 +53,13 @@ def fire(event):  # 이벤트를 처리하는 함수
 paused = True
 
 
-paused_check = ["True"]
-
-
 def is_paused(event):
     global paused
+    global paused_check
     if paused == True:
         paused = False
-        global paused_check
-        if len(paused_check) > 0:
-            paused_check = []
-        paused_check.append("False")
-        print('f')
     else:
         paused = True
-        if len(paused_check) > 0:
-            paused_check = []
-        paused_check.append("True")
-        print('t')
 
 
 def go():
@@ -111,17 +100,9 @@ enemy = Ball(canvas, 'red', 100, 500, 200, a, b)
 
 # 리스트에 저장된 각각의 객체를 이동시킨다.
 while True:
-    # canvas.bind('<Button-3>', is_paused)
-    while True:
-        if paused_check[0] == "True":
-            paused = True
-            print("True")
-            break
-        elif paused_check[0] == "False":
-            paused = False
-            print("False")
-            break
     if paused:
+        e2.delete(0, END)
+        e2.insert(0, 20-chance)
         for bullet in bullets:
             bullet.bul_move()
             (a, b) = (bullet.x+5, bullet.y+5)
@@ -134,8 +115,6 @@ while True:
                 i += 1
                 e1.delete(0, END)
                 e1.insert(0, i)
-                e2.delete(0, END)
-                e2.insert(0, 20-chance)
 
             # 포탄이 화면을 벗어나면 삭제한다.
             if (bullet.x + bullet.size) >= WIDTH:
