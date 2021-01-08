@@ -51,7 +51,6 @@ bullets = []
 lengths = []
 
 
-
 def fire(event):  # 이벤트를 처리하는 함수
     global chance
     bullets.append(Ball(canvas, 'white', 10, 150, 250, 15, 0))
@@ -59,7 +58,6 @@ def fire(event):  # 이벤트를 처리하는 함수
 
 
 paused = True
-paused = False
 
 
 paused_check = ["True"]
@@ -136,21 +134,16 @@ b1 = Button(window, text='stop for 2sec', command=stop, relief='groove')
 b1.grid(row=3, column=3)
 canvas.bind('<Button-3>', is_paused)
 
-# 우리 우주선과 외계 우주선을 생성한다.
-a = random.randrange(30, 100)/10
-b = random.randrange(30, 100)/10
-spaceship = Ball(canvas, 'green', 100, 100, 200, 0, 0)
-enemy = Ball(canvas, 'red', 100, 500, 200, a, b)
-
 # 리스트에 저장된 각각의 객체를 이동시킨다.
 while True:
     # canvas.bind('<Button-3>', is_paused)
+    e2.delete(0, END)
+    e2.insert(0, 20-chance)
+
     while True:
         if paused_check[0] == "True":
             paused = True
             print("True")
-        e2.delete(0, END)
-        e2.insert(0, 20-chance)
             break
         elif paused_check[0] == "False":
             paused = False
