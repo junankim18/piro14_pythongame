@@ -67,13 +67,12 @@ l1 = Label(window, text='점수', fg='green', relief='groove')
 l1.grid(row=1, column=2)
 e1 = Entry(window)
 e1.grid(row=1, column=3)
-b2 = Radiobutton(window, text='go', value=1, command=go)
-b2.grid(row=2, column=2)
-b1 = Radiobutton(window, text='stop', value=1, command=stop)
+# b2 = Button(window, text='go', command=go)
+# b2.grid(row=2, column=2)
+b1 = Button(window, text='stop for 2sec', command=stop, relief='groove')
 b1.grid(row=2, column=3)
 
-window.bind('<space>', stop)  # stop 함수 정의
-
+# window.bind('<space>', stop)  # stop 함수 정의
 
 # 우리 우주선과 외계 우주선을 생성한다.
 spaceship = Ball(canvas, 'green', 100, 100, 200, 0, 0)  # 수정하지 말 것!
