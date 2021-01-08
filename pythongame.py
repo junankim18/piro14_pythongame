@@ -61,14 +61,12 @@ def is_paused(event):
     if paused == True:
         paused = False
         global paused_check
-        if len(paused_check) > 0:
-            paused_check = []
+        paused_check = []
         paused_check.append("False")
         print('f')
     else:
         paused = True
-        if len(paused_check) > 0:
-            paused_check = []
+        paused_check = []
         paused_check.append("True")
         print('t')
 
