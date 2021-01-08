@@ -49,14 +49,6 @@ class Ball:
 # 생성된 포탄을 저장하는 리스트
 bullets = []
 lengths = []
-
-
-def fire(event):  # 이벤트를 처리하는 함수
-    global chance
-    bullets.append(Ball(canvas, 'white', 10, 150, 250, 15, 0))
-    chance += 1
-
-
 paused = True
 
 
@@ -93,7 +85,7 @@ if b < 0:
     bb = -3  # enemy의 y방향 최소속도제어
 else:
     bb = 3
-spaceship = Ball(canvas, 'green', 100, 100, 200, 0, 0)
+spaceship = Ball(canvas, 'green', 100, 100, 150, 0, 0)
 enemy = Ball(canvas, 'red', 100, 500, 200, a + aa, b + bb)
 chance = 0
 d = spaceship.y  # bullet과 spaceship의 위치 일치시키기 위해서 변수 설정
