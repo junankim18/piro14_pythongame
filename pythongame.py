@@ -36,7 +36,7 @@ class Ball:
         if y1 <= 0 or y2 >= HEIGHT:
             self.yspeed = - self.yspeed
 
-    def ship_move(self):         # Bullet을 이동시키는 함수
+    def ship_move(self):         # spaceship을 이동시키는 함수
         self.canvas.move(self.id, self.xspeed, self.yspeed)
         (x1, y1, x2, y2) = self.canvas.coords(self.id)
         (self.x, self.y) = (x1, y1)
@@ -62,7 +62,7 @@ def is_paused(event=None):
 
 
 window = Tk()
-window.title('GreenShooter')  # 우리 게임 이름 정함
+window.title('GreenSpaceship')  # 우리 게임 이름 정함
 window.resizable(False, False)  # 게임창 사이즈 임의로 못바꾸게
 canvas = Canvas(window, width=WIDTH, height=HEIGHT, relief='solid', bd=2)
 
@@ -70,6 +70,7 @@ canvas = Canvas(window, width=WIDTH, height=HEIGHT, relief='solid', bd=2)
 # 우리 우주선과 외계 우주선을 생성한다.
 a = random.randrange(-49, 50)/10  # enemy의 x방향 이동값
 b = random.randrange(-49, 50)/10  # enemy의 y방향 이동값
+c = random.randrange(-49, 50)/10  # spaceship의 y방향 이동값
 if a < 0:
     aa = -3  # enemy의 x방향 최소속도제어
 else:
@@ -78,7 +79,7 @@ if b < 0:
     bb = -3  # enemy의 y방향 최소속도제어
 else:
     bb = 3
-spaceship = Ball(canvas, 'green', 100, 100, 150, 0, 0)
+spaceship = Ball(canvas, 'green', 100, 100, 150+c, 0, 0)
 enemy = Ball(canvas, 'red', 100, 500, 200, a + aa, b + bb)
 chance = 0
 d = spaceship.y  # bullet과 spaceship의 위치 일치시키기 위해서 변수 설정
@@ -130,6 +131,7 @@ while True:
                 canvas.delete(bullet.id)
                 bullets.remove(bullet)
         enemy.move()
+        spaceship.ship_move()
         time.sleep(0.03)
         if chance == 21:
             break
