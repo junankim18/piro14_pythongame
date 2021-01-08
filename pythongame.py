@@ -40,23 +40,39 @@ class Ball:
 bullets = []
 lengths = []
 
-# 이벤트를 처리하는 함수
 
-
-def fire(event):
+def fire(event):  # 이벤트를 처리하는 함수
     bullets.append(Ball(canvas, 'white', 10, 150, 250, 10, 0))
+
+
+def stop(event=None):
+    n = 2
+    time.sleep(n)
+
+
+def go(event=None):
+    n = 0.1
+    time.sleep(n)
 
 
 i = 0
 # 윈도우를 생성한다.
 window = Tk()
-canvas = Canvas(window, width=WIDTH, height=HEIGHT)
-canvas.grid(row=0, column=0, columnspan=2)
+window.title('GreenShooter')  # 우리 게임 이름 정함
+window.resizable(False, False)  # 게임창 사이즈 임의로 못바꾸게
+canvas = Canvas(window, width=WIDTH, height=HEIGHT, relief='solid', bd=2)
+canvas.grid(row=0, column=0, columnspan=1)
 canvas.bind('<Button-1>', fire)
-l1 = Label(window, text='점수')
-l1.grid(row=30, column=10)
+l1 = Label(window, text='점수', fg='green', relief='groove')
+l1.grid(row=1, column=2)
 e1 = Entry(window)
-e1.grid(row=30, column=20)
+e1.grid(row=1, column=3)
+# b2 = Button(window, text='go', command=go)
+# b2.grid(row=2, column=2)
+b1 = Button(window, text='stop for 2sec', command=stop, relief='groove')
+b1.grid(row=2, column=3)
+
+# window.bind('<space>', stop)  # stop 함수 정의
 
 # 우리 우주선과 외계 우주선을 생성한다.
 spaceship = Ball(canvas, 'green', 100, 100, 200, 0, 0)  # 수정하지 말 것!
@@ -81,7 +97,7 @@ while True:
         if (bullet.x + bullet.size) >= WIDTH:
             canvas.delete(bullet.id)
             bullets.remove(bullet)
-
     enemy.move()
     window.update()
     time.sleep(0.03)
+    # 일시정지 만들기
