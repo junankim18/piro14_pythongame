@@ -22,7 +22,7 @@ class Ball:
         self.canvas.move(self.id, self.xspeed, self.yspeed)
         (x1, y1, x2, y2) = self.canvas.coords(self.id)   # 공의 현재 위치를 얻는다.
         (self.x, self.y) = (x1, y1)
-        if x1 <= 400 or x2 >= WIDTH:  # 공의 x좌표가 음수이거나 x좌표가 오른쪽 경계를 넘으면
+        if x1 <= 300 or x2 >= WIDTH:  # 공의 x좌표가 음수이거나 x좌표가 오른쪽 경계를 넘으면
             self.xspeed = - self.xspeed      # 속도의 부호를 반전시킨다.
         if y1 <= 0 or y2 >= HEIGHT:  # 공의 x좌표가 음수이거나 x좌표가 오른쪽 경계를 넘으면
             self.yspeed = - self.yspeed      # 속도의 부호를 반전시킨다.
