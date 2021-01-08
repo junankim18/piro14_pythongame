@@ -24,7 +24,7 @@ class Ball:
         (self.x, self.y) = (x1, y1)
         if x1 <= 300 or x2 >= WIDTH:  # 공의 x좌표가 음수이거나 x좌표가 오른쪽 경계를 넘으면
             self.xspeed = - self.xspeed      # 속도의 부호를 반전시킨다.
-        if y1 <= 0 or y2 >= HEIGHT:  # 공의 x좌표가 음수이거나 x좌표가 오른쪽 경계를 넘으면
+        if y1 <= 0 or y2 >= HEIGHT:  # 공의 y좌표가 음수이거나 y좌표가 오른쪽 경계를 넘으면
             self.yspeed = - self.yspeed      # 속도의 부호를 반전시킨다.
 
     def bul_move(self):         # Bullet을 이동시키는 함수
@@ -61,14 +61,6 @@ def is_paused(event=None):
         paused = True
 
 
-def go():
-    time.sleep(1)
-
-
-def stop():
-    time.sleep(1)
-
-
 window = Tk()
 window.title('GreenShooter')  # 우리 게임 이름 정함
 window.resizable(False, False)  # 게임창 사이즈 임의로 못바꾸게
@@ -103,15 +95,15 @@ i = 0
 # 윈도우를 생성한다.
 canvas.grid(row=0, column=0, columnspan=1)
 canvas.bind('<Button-1>', fire)
-l1 = Label(window, text='점수', fg='green', relief='groove')
+l1 = Label(window, text=' 점 수 ', fg='green', relief='groove')
 l1.grid(row=1, column=2)
-l2 = Label(window, text='총알', fg='green', relief='groove')
+l2 = Label(window, text=' 총 알 ', fg='green', relief='groove')
 l2.grid(row=2, column=2)
 e1 = Entry(window)
 e1.grid(row=1, column=3)
 e2 = Entry(window)
 e2.grid(row=2, column=3)
-b1 = Button(window, text='pause', command=is_paused, relief="groove")
+b1 = Button(window, text='pause', fg="red", command=is_paused, relief="groove")
 b1.grid(row=3, column=2)
 canvas.bind('<Button-3>', is_paused)
 
