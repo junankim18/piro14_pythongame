@@ -33,26 +33,41 @@ class Ball:
         if x1 <= 0 or x2 >= WIDTH:  # 공의 x좌표가 음수이거나 x좌표가 오른쪽 경계를 넘으면
             self.xspeed = - self.xspeed      # 속도의 부호를 반전시킨다.
         if y1 <= 0 or y2 >= HEIGHT:  # 공의 x좌표가 음수이거나 x좌표가 오른쪽 경계를 넘으면
-            self.yspeed = - self.yspeed      # 속도의 부호를 반전시킨다.
+            self.yspeed = - selxf.yspeed      # 속도의 부호를 반전시킨다.
 
 
 # 생성된 포탄을 저장하는 리스트
 bullets = []
 lengths = []
 
+chance = 0
+
 
 def fire(event):  # 이벤트를 처리하는 함수
+    global chance
     bullets.append(Ball(canvas, 'white', 10, 150, 250, 10, 0))
+    chance += 1
 
 
-def stop(event=None):
-    n = 2
-    time.sleep(n)
+paused = False
 
 
-def go(event=None):
-    n = 0.1
-    time.sleep(n)
+def is_paused(event):
+    global paused
+    if paused == True:
+        paused = False
+        print('f')
+    else:
+        paused = True
+        print('t')
+
+
+def go():
+    time.sleep(1)
+
+
+def stop():
+    time.sleep(1)
 
 
 i = 0
@@ -67,19 +82,50 @@ l1 = Label(window, text='점수', fg='green', relief='groove')
 l1.grid(row=1, column=2)
 e1 = Entry(window)
 e1.grid(row=1, column=3)
-# b2 = Button(window, text='go', command=go)
-# b2.grid(row=2, column=2)
+b2 = Button(window, text='go', command=go, relief='groove')
+b2.grid(row=2, column=2)
 b1 = Button(window, text='stop for 2sec', command=stop, relief='groove')
 b1.grid(row=2, column=3)
-
-# window.bind('<space>', stop)  # stop 함수 정의
+canvas.bind('<Button-3>', is_paused)
 
 # 우리 우주선과 외계 우주선을 생성한다.
-spaceship = Ball(canvas, 'green', 100, 100, 200, 0, 0)  # 수정하지 말 것!
-enemy = Ball(canvas, 'red', 100, 500, 200, 3, 3)        # 수정하지 말 것!
+spaceship = Ball(canvas, 'green', 100, 100, 200, 0, 0)
+enemy = Ball(canvas, 'red', 100, 500, 200, 3, 3)
 
 # 리스트에 저장된 각각의 객체를 이동시킨다.
 while True:
+    # canvas.bind('<Button-3>', is_paused)
+    while True:
+        if paused:
+            enemy.xspeed = 0
+            enemy.yspeed = 0
+            break
+        else:
+            for bullet in bullets:
+                bullet.bul_move()
+                (a, b) = (bullet.x+5, bullet.y+5)
+                (c, d) = (enemy.x+50, enemy.y+50)
+                length = ((a-c)**2+(b-d)**2)**0.5
+                lengths.append(length)
+                if length <= 55:
+                    canvas.delete(bullet.id)
+                    bullets.remove(bullet)
+                    i += 1
+                    e1.delete(0, END)
+                    e1.insert(0, i)
+                # 포탄이 화면을 벗어나면 삭제한다.
+                if (bullet.x + bullet.size) >= WIDTH:
+                    canvas.delete(bullet.id)
+                    bullets.remove(bullet)
+            enemy.move()
+            window.update()
+            time.sleep(0.03)
+            # print(chance)
+            if chance == 50:
+                break
+    # enemy.xspeed = 3
+    # enemy.yspeed = 3
+    # enemy.move()
     for bullet in bullets:
         bullet.bul_move()
         (a, b) = (bullet.x+5, bullet.y+5)
@@ -92,12 +138,16 @@ while True:
             i += 1
             e1.delete(0, END)
             e1.insert(0, i)
-
         # 포탄이 화면을 벗어나면 삭제한다.
         if (bullet.x + bullet.size) >= WIDTH:
             canvas.delete(bullet.id)
             bullets.remove(bullet)
+        # if paused:
+        #     time.sleep(1)
+        #     print('space')
     enemy.move()
     window.update()
     time.sleep(0.03)
-    # 일시정지 만들기
+    # print(chance)
+    if chance == 50:
+        break
