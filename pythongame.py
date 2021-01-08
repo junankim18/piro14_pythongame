@@ -132,7 +132,7 @@ while True:
             enemy.move()
             window.update()
             time.sleep(0.03)
-            if chance == 20:
+            if chance == 21:
                 break
     # enemy.xspeed = 3
     # enemy.yspeed = 3
