@@ -53,21 +53,13 @@ def fire(event):  # 이벤트를 처리하는 함수
 paused = True
 
 
-def is_paused(event):
+def is_paused(event=None):
     global paused
     global paused_check
     if paused == True:
         paused = False
     else:
         paused = True
-
-
-def go():
-    time.sleep(1)
-
-
-def stop():
-    time.sleep(1)
 
 
 i = 0
@@ -86,10 +78,8 @@ e1 = Entry(window)
 e1.grid(row=1, column=3)
 e2 = Entry(window)
 e2.grid(row=2, column=3)
-b2 = Button(window, text='go', command=go, relief='groove')
-b2.grid(row=3, column=2)
-b1 = Button(window, text='stop for 2sec', command=stop, relief='groove')
-b1.grid(row=3, column=3)
+b1 = Button(window, text='pause', command=is_paused, relief="groove")
+b1.grid(row=3, column=2)
 canvas.bind('<Button-3>', is_paused)
 
 # 우리 우주선과 외계 우주선을 생성한다.
