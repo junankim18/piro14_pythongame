@@ -60,22 +60,12 @@ def fire(event):  # 이벤트를 처리하는 함수
 paused = True
 
 
-paused_check = ["True"]
-
-
 def is_paused(event):
     global paused
     if paused == True:
         paused = False
-        global paused_check
-        paused_check = []
-        paused_check.append("False")
-        print('f')
     else:
         paused = True
-        paused_check = []
-        paused_check.append("True")
-        print('t')
 
 
 def go():
@@ -93,25 +83,25 @@ canvas = Canvas(window, width=WIDTH, height=HEIGHT, relief='solid', bd=2)
 
 
 # 우리 우주선과 외계 우주선을 생성한다.
-a = random.randrange(-49, 50)/10
-b = random.randrange(-49, 50)/10
-c = random.randrange(-99, 100)/20
+a = random.randrange(-49, 50)/10  # enemy의 x방향 이동값
+b = random.randrange(-49, 50)/10  # enemy의 y방향 이동값
 if a < 0:
-    aa = -3
+    aa = -3  # enemy의 x방향 최소속도제어
 else:
     aa = 3
 if b < 0:
-    bb = -3
+    bb = -3  # enemy의 y방향 최소속도제어
 else:
     bb = 3
 spaceship = Ball(canvas, 'green', 100, 100, 200, 0, 0)
 enemy = Ball(canvas, 'red', 100, 500, 200, a + aa, b + bb)
 chance = 0
-d = spaceship.y
+d = spaceship.y  # bullet과 spaceship의 위치 일치시키기 위해서 변수 설정
 
 
 def fire(event):  # 이벤트를 처리하는 함수
     global chance
+    # bullet과 spaceship의 y좌표를 같도록-근데 안됨
     bullets.append(Ball(canvas, 'white', 10, 150, d, 20, 0))
     chance += 1
 
@@ -136,20 +126,9 @@ canvas.bind('<Button-3>', is_paused)
 
 # 리스트에 저장된 각각의 객체를 이동시킨다.
 while True:
-    # canvas.bind('<Button-3>', is_paused)
-    e2.delete(0, END)
-    e2.insert(0, 20-chance)
-
-    while True:
-        if paused_check[0] == "True":
-            paused = True
-            print("True")
-            break
-        elif paused_check[0] == "False":
-            paused = False
-            print("False")
-            break
     if paused:
+        e2.delete(0, END)
+        e2.insert(0, 20-chance)
         for bullet in bullets:
             bullet.bul_move()
             (a, b) = (bullet.x+5, bullet.y+5)
@@ -162,8 +141,6 @@ while True:
                 i += 1
                 e1.delete(0, END)
                 e1.insert(0, i)
-                e2.delete(0, END)
-                e2.insert(0, 20-chance)
 
             # 포탄이 화면을 벗어나면 삭제한다.
             if (bullet.x + bullet.size) >= WIDTH:
@@ -174,9 +151,3 @@ while True:
         if chance == 21:
             break
     window.update()
-    time.sleep(0.03)
-    e2.delete(0, END)
-    e2.insert(0, 20-chance)
-    # print(chance)
-    if chance == 21:
-        break
