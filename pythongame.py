@@ -34,7 +34,7 @@ class Ball:
         if x1 <= 0 or x2 >= WIDTH:  # 공의 x좌표가 음수이거나 x좌표가 오른쪽 경계를 넘으면
             self.xspeed = - self.xspeed      # 속도의 부호를 반전시킨다.
         if y1 <= 0 or y2 >= HEIGHT:  # 공의 x좌표가 음수이거나 x좌표가 오른쪽 경계를 넘으면
-            self.yspeed = - selxf.yspeed      # 속도의 부호를 반전시킨다.
+            self.yspeed = - self.yspeed      # 속도의 부호를 반전시킨다.
 
 
 # 생성된 포탄을 저장하는 리스트
